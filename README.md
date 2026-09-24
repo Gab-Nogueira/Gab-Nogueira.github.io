@@ -82,4 +82,3 @@ Os SVGs locais de Python, JavaScript, TypeScript, React, Node.js, Vite, HTML, CS
 A Home foi conferida nos navegadores Chrome e Edge instalados, inclusive em desktop baixo (1440×650), confirmando a mesma transição horizontal e os cartões empilhados. O fluxo móvel foi conferido em 390×844: permanece vertical, sem rolagem horizontal e com os 16 ícones distribuídos sem sobreposição.
 
 Além de `npm run typecheck`, `npm run lint`, `npm run build` e `npm run verify:site`, rode `npm test` para verificar preferências, inicialização, cobertura das traduções e composição segura dos e-mails.
-

@@ -1,0 +1,22 @@
+'use client';
+import Image from 'next/image';
+import { projects, type ProjectId } from '@/src/data/projects';
+import { usePreferences } from '@/src/hooks/usePreferences';
+
+// Original interface concepts; no customer data or performance claims.
+export function ProjectPreview({ id }: { id: ProjectId }) {
+  const { t } = usePreferences();
+  const { news, plenitude, excel, tasks } = t.previews;
+  const project = projects.find(item => item.id === id);
+  if (project?.image) return <div className="project-preview preview-capture" aria-hidden="true"><Image src={project.image} alt="" width={1440} height={900} loading="lazy" decoding="async"/></div>;
+  if (id === 'uninews') return <div className="project-preview preview-news" aria-hidden="true">
+    <div className="news-poster"><div className="preview-bar"><b>UN/</b><span>{news.tagline}</span><span>{news.menu} +</span></div><div className="news-masthead">uni<span>news</span><i>↗</i></div><div className="news-rule">{news.sections.map((name,index)=><span key={index}>{name}</span>)}</div><div className="news-feature"><div><span className="preview-kicker">{news.kicker}</span><h4>{news.title.map((line,index)=><span className="preview-line" key={index}>{line}</span>)}</h4><span className="preview-read">{news.read} <b>↗</b></span></div><div className="news-graphic"><span>u.</span><i>↓</i><small>{news.people[0]}<br/>{news.people[1]}</small></div></div><div className="news-bottom"><span>{news.bottom}</span><span>{news.journal}</span></div></div>
+  </div>;
+  if (id === 'plenitude') return <div className="project-preview preview-plenitude" aria-hidden="true">
+    <div className="plenitude-window"><div className="plenitude-topbar"><div className="plenitude-brand"><span>PL</span><strong>PLENITUDE<small>{plenitude.brand}</small></strong></div><span>{plenitude.menu} &nbsp; +</span></div><div className="plenitude-hero"><div><span className="preview-kicker">{plenitude.eyebrow}</span><h4>{plenitude.heading.map((line,index)=><span className="preview-line" key={index}>{line}</span>)}</h4><p>{plenitude.description}</p><span className="plenitude-cta">{plenitude.cta} ↗</span></div><div className="plenitude-emblem"><span>{plenitude.edition}</span><strong>P</strong><small>{plenitude.brand}</small></div></div><div className="plenitude-course-list">{plenitude.courses.map((course,index)=><div key={course}><span>0{index+1}</span><strong>{course}</strong><small>{plenitude.audience[index]}</small></div>)}</div></div>
+  </div>;
+  if (id === 'excel-automation') return <div className="project-preview preview-excel" aria-hidden="true">
+    <div className="excel-heading"><span>{excel.kicker}</span><b>{excel.heading[0]}<br/><i>{excel.heading[1]}</i></b></div><div className="sheet-window"><div className="sheet-toolbar"><span className="excel-symbol">X</span><span>{excel.routine}</span><span>↗</span></div><div className="sheet-formula"><span>ƒx</span><code>{excel.formula}</code></div><div className="spreadsheet"><div className="sheet-row sheet-columns"><span/><span>A</span><span>B</span><span>C</span></div>{excel.rows.map((cells,index)=><div className={`sheet-row ${index===0?'sheet-table-heading':''}`} key={index}><span>{index+1}</span>{cells.map((cell,i)=><span key={i}>{cell}</span>)}</div>)}</div><div className="sheet-footer"><span>+ &nbsp; {excel.processes}</span><span>{excel.example}</span></div></div><div className="automation-stamp"><span>{excel.less}</span><b>↗</b><span>{excel.more}</span></div>
+  </div>;
+  return <div className="project-preview preview-tasks" aria-hidden="true"><div className="tasks-window"><div className="tasks-nav"><strong>next<span>step</span>®</strong><span>{tasks.breadcrumb}</span><b>GN</b></div><div className="tasks-header"><div><span className="preview-kicker">{tasks.kicker}</span><h4>{tasks.heading[0]}<br/>{tasks.heading[1]}</h4></div><span className="task-add">+ {tasks.add}</span></div><div className="kanban">{tasks.columns.map((column,index)=><div className="kanban-column" key={index}><div className="kanban-label"><i style={{background:['#e6a884','#b5b4da','#adc1ad'][index]}}/>{column}<span>0{tasks.cards[index].length}</span></div>{tasks.cards[index].map((task,i)=><div className="kanban-card" key={i}><span className="task-tag" style={{color:['#e6a884','#b5b4da','#adc1ad'][index]}}>{tasks.tags[index]}</span><b>{task}</b><div><span>↗</span><span className="task-avatar">{i?'GN':'✳'}</span></div></div>)}</div>)}</div></div></div>;
+}
