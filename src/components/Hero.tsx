@@ -145,7 +145,7 @@ export function Hero() {
     <svg className="filter-definitions" aria-hidden="true"><defs><filter id="type-distortion" x="-10%" y="-20%" width="120%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".012 .045" numOctaves="2" seed="8" result="noise"/><feOffset ref={noiseOffset} in="noise" dx="0" dy="0" result="moving-noise"/><feDisplacementMap ref={displacement} in="SourceGraphic" in2="moving-noise" scale="0" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
     <div className="hero-rule" />
     <div className="hero-main">
-      <div className="hero-title-mask"><h1 className="hero-title" ref={heading} aria-label={`${t.hero.role} ${t.hero.word}`}><span className="hero-word">{t.hero.word.split('').map((letter, index) => <span className="hero-letter" key={index} aria-hidden="true"><span className="hero-letter-ink">{letter}</span></span>)}</span></h1></div>
+      <div className="hero-title-mask"><h1 className="hero-title" ref={heading} aria-label={`${t.hero.word} ${t.hero.role}`}><span className="hero-word">{t.hero.word.split('').map((letter, index) => <span className="hero-letter" key={index} aria-hidden="true"><span className="hero-letter-ink">{letter}</span></span>)}</span></h1></div>
       <div className="hero-subline"><span className="hero-subtitle-mask"><span className="hero-subtitle">{t.hero.role}</span></span><div className="hero-traits micro">{t.hero.traits.map((trait, index) => <span key={index}>{trait}</span>)}</div></div>
     </div>
     <ScrollLink href="#about" className="hero-explore micro" aria-label={t.hero.about}><span>{t.hero.explore}</span><span className="scroll-stem" aria-hidden="true"/></ScrollLink>

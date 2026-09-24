@@ -74,8 +74,9 @@ test('all three languages cover every page, preview, accessibility label and sta
   assert.deepEqual(leaves(translations.en), expected);
   assert.deepEqual(leaves(translations.es), expected);
   assert.equal(translations.en.hero.word, 'CREATIVE');
-  assert.equal(translations.pt.hero.word, 'CRIATIVO');
-  assert.equal(translations.es.hero.word, 'CREATIVO');
+  assert.equal(`${translations.en.hero.word} ${translations.en.hero.role}`, 'CREATIVE DEVELOPER');
+  assert.equal(`${translations.pt.hero.word} ${translations.pt.hero.role}`, 'DESENVOLVEDOR CRIATIVO');
+  assert.equal(`${translations.es.hero.word} ${translations.es.hero.role}`, 'DESARROLLADOR CREATIVO');
 });
 
 test('localized contact drafts preserve user text and report validation in the selected language', () => {
