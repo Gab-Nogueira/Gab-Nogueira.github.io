@@ -41,6 +41,21 @@ test('duplicate exit notifications do not cancel the requested navigation', () =
   assert.equal(events.some(event=>event[0]==='focus'),false);
 });
 
+test('a repeated close event after the exit preserves navigation and restores scrolling once', () => {
+  const {menu,events,flush}=menuHarness();
+  menu.changeOpen(true); menu.select('#contact'); menu.complete(false);
+  menu.changeOpen(false); menu.complete(false); flush();
+  assert.deepEqual(events.filter(event=>event[0]==='navigate'),[['navigate','#contact']]);
+  assert.deepEqual(events.filter(event=>event[0]==='lock'),[['lock',true],['lock',false]]);
+});
+
+test('duplicate close notifications preserve keyboard focus restoration', () => {
+  const {menu,events,flush}=menuHarness();
+  menu.changeOpen(true); menu.changeOpen(false); menu.complete(false);
+  menu.changeOpen(false); flush();
+  assert.deepEqual(events.filter(event=>event[0]==='focus'),[['focus']]);
+});
+
 test('quick reopening cancels stale navigation instead of moving the page behind the open menu', () => {
   const {menu,events,flush}=menuHarness();
   menu.changeOpen(true); menu.select('#contact'); menu.complete(false); menu.changeOpen(true); flush();

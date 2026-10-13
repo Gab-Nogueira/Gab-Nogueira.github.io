@@ -108,7 +108,9 @@
 .navigation-links a > span:nth-child(2) { overflow-wrap: anywhere; }
 .navigation-top .menu-trigger { min-width: 48px; min-height: 48px; }
 .navigation-caption .preference-control [data-slot='native-select'] { font-size: 13px; }
+.navigation-caption .preference-controls { flex-wrap: wrap; }
 .navigation-bottom { flex-shrink: 0; }
+.navigation-bottom a { min-width: 0; overflow-wrap: anywhere; }
 
 @media(max-width:900px) {
   .expertise-intro { min-height: 0; }
@@ -116,6 +118,10 @@
   .technology-field { height: 500px; }
   .expertise-list { align-self: stretch; }
   .expertise-touch-preview { display: block; margin: 0 20px 22px 35px; overflow: clip; border: 1px solid var(--line); border-radius: 6px; }
+  .navigation-layout { display: flex; flex-direction: column-reverse; align-items: stretch; gap: 24px; padding-block: 24px; }
+  .navigation-caption { margin: 0; align-self: stretch; }
+  .navigation-caption .preference-controls { margin-top: 0; }
+  .navigation-links a > span:nth-child(2) { font-size: clamp(30px,6vw,54px); }
 }
 @media (pointer:coarse) {
   .expertise-touch-preview { display: block; margin: 0 20px 22px 35px; overflow: clip; border: 1px solid var(--line); border-radius: 6px; }
@@ -155,6 +161,9 @@
   .navigation-bottom { padding-top: 12px; }
 }
 @media(prefers-reduced-motion:reduce) {
+  div[data-slot='dialog-content'].navigation-panel,
+  div[data-slot='dialog-content'].navigation-panel[data-closed],
+  .navigation-links a { animation: none; }
   .loader-orbit, .loader-core, .loader-satellite { animation: none; }
   .tech-drift, .tech-parallax { will-change: auto; }
   .tech-icon-button:hover, .tech-icon-button:focus-visible, .tech-icon-button[aria-pressed='true'] { scale: 1; }

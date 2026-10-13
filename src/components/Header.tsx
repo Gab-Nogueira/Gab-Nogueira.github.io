@@ -26,7 +26,7 @@ export function Header() {
       navigate: href => {
         history.replaceState(history.state, '', href);
         scrollTo(href);
-        const title = document.querySelector<HTMLElement>(`${href} h2`);
+        const title = document.querySelector<HTMLElement>(`${href} h1, ${href} h2`);
         if (title) { title.tabIndex = -1; title.focus({ preventScroll: true }); }
       },
     });
@@ -40,7 +40,7 @@ export function Header() {
     <div className="header-actions"><PreferenceControls/>
     <Dialog open={open} onOpenChange={next=>menu.current?.changeOpen(next)} onOpenChangeComplete={next=>menu.current?.complete(next)} modal="trap-focus">
       <DialogTrigger ref={trigger} className="menu-trigger micro" aria-label={t.openMenu}><span className="menu-word">{t.menu}</span><span className="menu-glyph" aria-hidden="true">☰</span></DialogTrigger>
-      <DialogContent className="navigation-panel" showCloseButton={false} initialFocus={close} finalFocus={false} data-lenis-prevent>
+      <DialogContent layout="fullscreen" className="navigation-panel" showCloseButton={false} initialFocus={close} finalFocus={false} data-lenis-prevent>
         <div className="navigation-top"><span className="wordmark">GABRIEL<br/>NOGUEIRA</span><DialogClose ref={close} className="menu-trigger micro" aria-label={t.closeMenu}>{t.close} <span className="menu-glyph" aria-hidden="true">×</span></DialogClose></div>
         <DialogTitle className="sr-only">{t.menuTitle}</DialogTitle>
         <DialogDescription className="sr-only">{t.menuHelp}</DialogDescription>

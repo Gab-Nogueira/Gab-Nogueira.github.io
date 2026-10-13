@@ -13,6 +13,7 @@ export function createMenuNavigation(actions: MenuActions) {
   let pendingSection: string | null = null;
   let frame = 0;
   const changeOpen = (next: boolean) => {
+    if (next === open) return;
     open = next; actions.cancel(frame);
     if (next) { pendingSection = null; locked = true; actions.lock(true); }
     actions.setOpen(next);

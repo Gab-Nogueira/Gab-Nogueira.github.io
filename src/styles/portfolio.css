@@ -47,11 +47,11 @@
 
 /* Full-screen navigation uses the shared accessible dialog. */
 div[data-slot='dialog-content'].navigation-panel {
-  position: fixed; inset: 0; top: 0; left: 0; max-width: none; max-height: none; width: 100%; height: 100dvh;
+  position: fixed; inset: 0; top: 0; left: 0; max-width: none; max-height: none; width: 100%; height: 100vh; height: 100dvh;
   /* Tailwind 4's centering utilities use the individual translate property. */
   transform: none; translate: none; scale: 1; rotate: none; margin: 0;
   z-index: 160; display: flex; flex-direction: column; gap: 0; border-radius: 0; padding: max(24px,env(safe-area-inset-top)) var(--gutter) max(24px,env(safe-area-inset-bottom));
-  overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y;
+  overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y;
   background: var(--ink); color: var(--cream); box-shadow: none; outline: 0;
   animation: navigation-in .65s cubic-bezier(.76,0,.24,1) both;
 }
@@ -59,16 +59,16 @@ div[data-slot='dialog-content'].navigation-panel[data-closed] { animation: navig
 @keyframes navigation-in { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
 @keyframes navigation-out { from { clip-path: inset(0); } to { clip-path: inset(0 0 100% 0); } }
 .navigation-top, .navigation-bottom { display: flex; align-items: center; justify-content: space-between; }
-.navigation-top { padding-bottom: 25px; border-bottom: 1px solid #35332e; }
-.navigation-layout { flex: 1 0 auto; display: grid; grid-template-columns: 1fr 1.8fr; align-items: center; gap: 5vw; padding-block: 35px; }
+.navigation-top { flex-shrink: 0; padding-bottom: 25px; border-bottom: 1px solid #35332e; }
+.navigation-layout { flex: 1 0 auto; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.8fr); align-items: center; gap: 5vw; padding-block: 35px; }
 .navigation-caption { color: #a39f96; align-self: end; margin-bottom: 45px; }
-.navigation-links { display: flex; flex-direction: column; }
+.navigation-links { display: flex; flex-direction: column; min-width: 0; }
 .navigation-links a { display: flex; align-items: center; gap: 30px; border-bottom: 1px solid #33312c; padding: 17px 0; animation: menu-link-in .8s var(--ease-out) both; }
 .navigation-links a > span:nth-child(2) { font-size: clamp(30px,5vw,80px); font-family: var(--font-display); text-transform: uppercase; letter-spacing: -.02em; line-height: 1; transition: transform .5s var(--ease-out),color .5s var(--ease-out); }
 .navigation-links a > .micro { color: #9a968b; }
 .navigation-links a:hover > span:nth-child(2) { transform: translateX(10px); color: var(--gold); }
 .nav-arrow { margin-left: auto; font-size: 35px; color: var(--gold); }
-.navigation-bottom { border-top: 1px solid #33312c; padding-top: 25px; }
+.navigation-bottom { flex-wrap: wrap; gap: 12px 24px; border-top: 1px solid #33312c; padding-top: 25px; }
 @keyframes menu-link-in { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
 
 /* Custom cursor keeps the point precise and the ring deliberately slower. */
@@ -367,7 +367,7 @@ dd { margin: 0; font-size: 13px; line-height: 1.7; }
   .hero { min-height: 630px; }
   .hero-main { top: 29%; }
   .hero-title { font-size: 24.6vw; }
-  .navigation-layout { grid-template-columns: .65fr 1.35fr; }
+  .navigation-layout { grid-template-columns: minmax(0,.65fr) minmax(0,1.35fr); }
   .case-story { padding-block: 60px 75px; gap: 8vw; }
 }
 @media(max-width:600px) {

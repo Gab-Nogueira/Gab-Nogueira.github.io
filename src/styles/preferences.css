@@ -82,6 +82,10 @@ div[data-slot='dialog-content'].navigation-panel { background: var(--surface); c
   .hero-header .wordmark { font-size: 9px; gap: 6px; }
   .hero-header .wordmark-symbol { font-size: 24px; }
   .header-actions { gap: 9px; }
+  /* Preferences remain available inside the menu without crowding its trigger. */
+  .header-actions > .preference-controls { display: none; }
+  .header-actions .menu-trigger { min-width: 48px; min-height: 48px; justify-content: center; }
+  .header-actions .menu-word { display: inline; }
   .preference-controls { gap: 6px; }
   .preference-control > svg { width: 12px; }
   .preference-control [data-slot='native-select'] { font-size: 9px; max-width: 100px; min-height: 44px; padding-left: 3px; }
