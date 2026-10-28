@@ -12,7 +12,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const project = projects.find(item => item.id === slug);
   const copy = project ? translations.pt.projects[project.id] : undefined;
-  return { title: copy ? `${copy.title} — Gabriel Nogueira` : 'Projeto não encontrado — Gabriel Nogueira', description: copy?.description };
+  return {
+    title: copy ? `${copy.title} — Gabriel Nogueira` : 'Projeto não encontrado — Gabriel Nogueira',
+    description: copy?.description,
+    alternates: project ? { canonical: `/work/${project.id}/` } : undefined,
+    openGraph: copy ? { title: `${copy.title} — Gabriel Nogueira`, description: copy.description, type: 'website', locale: 'pt_BR', url: `/work/${project!.id}/` } : undefined,
+    twitter: copy ? { card: 'summary', title: `${copy.title} — Gabriel Nogueira`, description: copy.description } : undefined,
+  };
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {

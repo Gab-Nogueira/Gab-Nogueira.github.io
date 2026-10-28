@@ -27,15 +27,15 @@ O fluxo `.github/workflows/deploy-pages.yml` valida e publica automaticamente o 
 
 Depois da primeira configuração, futuras alterações seguem o mesmo processo: editar, validar, criar um commit e enviar para o GitHub. A publicação é atualizada automaticamente se todas as verificações passarem.
 
-O endereço local é informado pelo servidor: desenvolvimento em `http://127.0.0.1:3000`, produção local em `http://127.0.0.1:4173`. A Home está em `/`; os detalhes atuais ficam em `/work/uninews`, `/work/task-management`, `/work/plenitude` e `/work/excel-automation`. A publicação usa apenas arquivos estáticos de `dist/client`, sem servidor ou banco em produção.
+O endereço local é informado pelo servidor: desenvolvimento em `http://127.0.0.1:3000`, produção local em `http://127.0.0.1:4173`. A Home está em `/`; cada projeto do catálogo tem sua página em `/work/<id>`. O índice da Home dá acesso direto aos oito projetos, incluindo CYOLA, Nexius Barber, Plenitude, UniNews, Gestão de tarefas, Automação em Excel, Quebra Tudo e o próprio portfólio. A publicação usa apenas arquivos estáticos de `dist/client`, sem servidor ou banco em produção.
 
 ## Conteúdo
 
-- `src/data/profile.ts`: e-mail, GitHub e LinkedIn fornecidos por Gabriel, localização e campo opcional para foto. Links vazios ficam ocultos.
-- `src/data/projects.ts`: conteúdo e links dos quatro projetos. Preencha `image` com uma captura real em `public/`, `year` e `technologies` com dados confirmados.
+- `src/data/profile.ts`: e-mail, WhatsApp, GitHub e LinkedIn fornecidos por Gabriel, localização e foto. Links vazios ficam ocultos.
+- `src/data/projects.ts`: metadados e links dos oito projetos. Preencha `image` com uma captura real em `public/` e `technologies` com dados confirmados. As fontes e os limites estão em `docs/CONTENT-SOURCES.md`.
 - `src/data/translations.ts`: textos de todas as páginas, projetos, prévias e formulários em português, inglês e espanhol. Os textos exibidos são os deste arquivo; imagens, links e demais dados técnicos continuam em `projects.ts`.
 - As composições de interface em `ProjectPreview.tsx` são originais e identificadas como conceituais. Não são capturas reais nem evidência de resultados dos projetos.
-- O monograma GN ocupa o espaço da foto enquanto não há retrato fornecido. Não representa uma pessoa fictícia.
+- A seção Sobre usa a foto fornecida por Gabriel. Se não houver retrato configurado, o monograma GN ocupa o espaço.
 - A seção Sobre informa, nos três idiomas, que Gabriel é técnico em Informática e estudante de Engenharia Aeronáutica e Espaço; a graduação aparece como em andamento.
 
 ## Contato
@@ -82,3 +82,9 @@ Os SVGs locais de Python, JavaScript, TypeScript, React, Node.js, Vite, HTML, CS
 A Home foi conferida nos navegadores Chrome e Edge instalados, inclusive em desktop baixo (1440×650), confirmando a mesma transição horizontal e os cartões empilhados. O fluxo móvel foi conferido em 390×844: permanece vertical, sem rolagem horizontal e com os 16 ícones distribuídos sem sobreposição.
 
 Além de `npm run typecheck`, `npm run lint`, `npm run build` e `npm run verify:site`, rode `npm test` para verificar preferências, inicialização, cobertura das traduções e composição segura dos e-mails.
+
+## Revisão do catálogo em outubro de 2026
+
+O catálogo ganhou um índice com acesso direto, contexto de cada projeto, descrição da atuação, funcionalidades e tecnologias verificadas. A seção Sobre inclui experiência na CYOLA, formação, voluntariado, idiomas e ferramentas. Títulos e descrições para compartilhamento, canonical, sitemap e robots acompanham as páginas estáticas.
+
+A revisão também preserva o acesso por teclado durante as animações de entrada e invalida o rascunho de contato quando os campos mudam. A checagem de arquivos exige uma página para cada projeto do catálogo.

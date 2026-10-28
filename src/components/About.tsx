@@ -23,8 +23,13 @@ export function About() {
         <span className="micro about-who" data-reveal>{t.about.who}</span>
         <h3 className="about-statement" data-reveal>{t.about.heading.map((part,index) => index % 2 ? <em key={index}>{part}</em> : <span key={index}>{part}</span>)}</h3>
         <div className="about-description" data-reveal><span className="micro">{t.about.hello}</span>{t.about.paragraphs.map((text,index)=><p key={index}>{text}</p>)}</div>
-        <dl className="about-facts"><div data-reveal><dt className="micro">{t.about.based}</dt><dd>São José dos Campos, SP<br/>{t.about.country}</dd></div><div data-reveal><dt className="micro">{t.about.focus}</dt><dd>{t.about.focusText}</dd></div><div data-reveal><dt className="micro">{t.about.background}</dt><dd>{t.about.education[0]}<br/>{t.about.education[1]}</dd></div></dl>
+        <dl className="about-facts"><div data-reveal><dt className="micro">{t.about.based}</dt><dd>São José dos Campos, SP<br/>{t.about.country}</dd></div><div data-reveal><dt className="micro">{t.about.focus}</dt><dd>{t.about.focusText}</dd></div><div data-reveal><dt className="micro">{t.about.background}</dt><dd>{t.about.education[0]}<br/>{t.about.education[1]}</dd></div><div data-reveal><dt className="micro">{t.catalog.language}</dt><dd>{t.catalog.languageValue}</dd></div></dl>
       </div>
+    </div>
+    <div className="career-section">
+      <div className="career-heading"><span className="micro">{t.catalog.trajectory}</span><h3>{t.catalog.experience}</h3></div>
+      <ol className="career-list">{t.catalog.career.map((item, index) => <li key={item.title} data-reveal><span className="micro career-number">{String(index + 1).padStart(2, '0')}</span><div><h4>{item.title}</h4><span className="micro">{item.subtitle}</span><p>{item.text}</p></div></li>)}</ol>
+      <div className="additional-tools"><span className="micro">{t.catalog.tools}</span><p>Power BI · Power Apps · Power Automate · Word · PowerPoint · VS Code · Visual Studio</p></div>
     </div>
   </section>;
 }

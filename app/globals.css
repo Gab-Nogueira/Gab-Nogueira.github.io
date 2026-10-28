@@ -5,6 +5,7 @@
 @import '../src/styles/preferences.css';
 @import '../src/styles/reference.css';
 @import '../src/styles/interactions.css';
+@import '../src/styles/catalog.css';
 @layer portfolio-base {
 :root {
   --ink: #090909; --cream: #ece3d3; --gold: #d7c38e; --paper: #f4f2ec;

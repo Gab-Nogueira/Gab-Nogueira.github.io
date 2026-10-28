@@ -21,6 +21,10 @@ for (const page of projectPages) {
 }
 
 await writeFile(path.join(siteDirectory, ".nojekyll"), "");
+const siteUrl = 'https://gab-nogueira.github.io';
+const urls = ['/', ...projectPages.map(page => `/work/${page.name.slice(0, -5)}/`)];
+await writeFile(path.join(siteDirectory, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(route => `  <url><loc>${siteUrl}${route}</loc></url>`).join('\n')}\n</urlset>\n`);
+await writeFile(path.join(siteDirectory, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml\n`);
 
 console.log(
   `GitHub Pages preparado: ${projectPages.length} rotas de projeto e .nojekyll.`,

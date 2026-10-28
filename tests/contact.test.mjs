@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createContactDraft } from '../src/lib/contact.ts';
 import { projects } from '../src/data/projects.ts';
+import { translations } from '../src/data/translations.ts';
 
 const recipient = 'gabsilvanogueira@gmail.com';
 const fields = { name: 'Ana Silva', email: 'ana@example.com', subject: 'Automação & design?', message: 'Olá! Vamos conversar sobre um projeto de automação?' };
@@ -40,7 +41,11 @@ test('project routes are unique, ordered and published links stay explicit', () 
   assert.deepEqual(plenitude?.technologies, ['React', 'TypeScript', 'Vite', 'Node.js', 'Express', 'Prisma', 'SQLite']);
   for (const project of projects) {
     assert.match(project.id, /^[a-z]+(?:-[a-z]+)*$/);
-    assert.ok(project.title && project.description && project.intention);
+    for (const copy of Object.values(translations)) {
+      assert.ok(copy.projects[project.id]?.title && copy.projects[project.id]?.description && copy.projects[project.id]?.intention);
+      assert.ok(copy.projects[project.id]?.context && copy.projects[project.id]?.role);
+      assert.ok(copy.projects[project.id]?.features.length > 0);
+    }
     for (const url of [project.url, project.github]) if (url) assert.match(url, /^https:\/\//);
   }
 });

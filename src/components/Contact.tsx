@@ -19,6 +19,7 @@ export function Contact() {
 
   const submit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setDraft(null); setManualCopy(false); setStatus('prepared');
     const values = new FormData(event.currentTarget);
     const field = (name: string) => { const value = values.get(name); return typeof value === 'string' ? value : ''; };
     try {
@@ -44,9 +45,9 @@ export function Contact() {
     <div className="contact-layout"><div className="contact-copy">
       <h2 className="section-heading">{t.contact.heading.map((line,index)=><span className="line-mask" key={index}><span data-line className={index===1?'gold':undefined}>{line}</span></span>)}</h2>
       <p className="contact-invitation" data-reveal>{t.contact.invitation}</p>
-      <dl className="contact-details"><div data-reveal><dt className="micro">{t.contact.hello}</dt><dd><a href={`mailto:${profile.email}`} className="text-link">{profile.email} <span aria-hidden="true">↗</span></a></dd></div><div data-reveal><dt className="micro">{t.contact.based}</dt><dd>{t.hero.location}</dd></div>{(profile.github || profile.linkedin) && <div data-reveal><dt className="micro">{t.contact.elsewhere}</dt><dd className="social-links">{profile.linkedin && <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="text-link">LinkedIn ↗</a>}{profile.github && <a href={profile.github} target="_blank" rel="noopener noreferrer" className="text-link">GitHub ↗</a>}</dd></div>}</dl>
+      <dl className="contact-details"><div data-reveal><dt className="micro">{t.contact.hello}</dt><dd className="contact-direct"><a href={profile.whatsapp} target="_blank" rel="noopener noreferrer" className="text-link">WhatsApp ↗</a><a href={`mailto:${profile.email}`} className="text-link">{profile.email} <span aria-hidden="true">↗</span></a></dd></div><div data-reveal><dt className="micro">{t.contact.based}</dt><dd>{t.hero.location}</dd></div>{(profile.github || profile.linkedin) && <div data-reveal><dt className="micro">{t.contact.elsewhere}</dt><dd className="social-links">{profile.linkedin && <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="text-link">LinkedIn ↗</a>}{profile.github && <a href={profile.github} target="_blank" rel="noopener noreferrer" className="text-link">GitHub ↗</a>}</dd></div>}</dl>
     </div>
-      <form className="contact-form" onSubmit={submit} aria-label={t.contact.formLabel}>
+      <form className="contact-form" onSubmit={submit} onChange={() => { setDraft(null); setManualCopy(false); setError(null); }} aria-label={t.contact.formLabel}>
         <div className="form-heading micro" data-reveal><span>{t.contact.formHeading}</span><span aria-hidden="true">↘</span></div>
         <div className="form-row"><label data-reveal htmlFor="contact-name"><span className="micro">01 — {t.contact.fields[0]}</span><Input id="contact-name" className="contact-input" name="name" autoComplete="name" placeholder={t.contact.placeholders[0]} maxLength={100} required/></label><label data-reveal htmlFor="contact-email"><span className="micro">02 — {t.contact.fields[1]}</span><Input id="contact-email" className="contact-input" name="email" type="email" autoComplete="email" placeholder={t.contact.placeholders[1]} maxLength={254} required/></label></div>
         <label data-reveal htmlFor="contact-subject"><span className="micro">03 — {t.contact.fields[2]}</span><Input id="contact-subject" className="contact-input" name="subject" placeholder={t.contact.placeholders[2]} maxLength={180} required/></label>

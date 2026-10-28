@@ -52,7 +52,11 @@ export function usePageAnimations(root: RefObject<HTMLElement | null>, ready: bo
           gsap.from(line, { yPercent: 110, duration: .95, ease: 'power4.out', scrollTrigger: { trigger: line.parentElement, start: 'top 94%', once: true } });
         });
         gsap.utils.toArray<HTMLElement>('[data-reveal]', scope).forEach(element => {
-          gsap.from(element, { y: desktop ? 36 : 22, autoAlpha: 0, duration: .85, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 93%', once: true } });
+          // Opacity preserves keyboard access. Reveal focused controls immediately.
+          const reveal = gsap.from(element, { y: desktop ? 36 : 22, opacity: 0, duration: .85, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 93%', once: true } });
+          const showOnFocus = () => { reveal.progress(1); };
+          element.addEventListener('focusin', showOnFocus);
+          unregister.push(() => element.removeEventListener('focusin', showOnFocus));
         });
         gsap.utils.toArray<HTMLElement>('.section-line', scope).forEach(line => gsap.from(line, { scaleX: 0, transformOrigin: 'left', duration: 1.25, ease: 'power3.inOut', scrollTrigger: { trigger: line, start: 'top 95%', once: true } }));
         if (desktop && scope.querySelector('.identity-frame')) gsap.fromTo('.identity-type, .portrait-image', { yPercent: -6, scale: 1.05 }, { yPercent: 6, scale: 1, ease: 'none', scrollTrigger: { trigger: '.identity-frame', start: 'top bottom', end: 'bottom top', scrub: true } });

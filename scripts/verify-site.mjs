@@ -2,9 +2,12 @@ import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
+import { projects } from '../src/data/projects.ts';
+import { profile } from '../src/data/profile.ts';
 
 const root = path.resolve('dist/client');
 const workPages = (await readdir(path.join(root, 'work'))).filter(file => file.endsWith('.html')).sort();
+assert.deepEqual(workPages, projects.map(project => `${project.id}.html`).sort(), 'Every catalog project has exactly one generated page');
 const routes = ['/', ...workPages.map(file => `/work/${file.slice(0, -5)}`)];
 const exists = async file => { try { return (await stat(file)).isFile(); } catch { return false; } };
 const routeFile = route => path.join(root, route === '/' ? 'index.html' : `${route.slice(1)}.html`);
@@ -47,6 +50,9 @@ for (const route of routes) {
     checkedAssets++;
   }
   if (route === '/') {
+    if (profile.portrait) assert.ok(markup.includes(profile.portrait), 'Home contains the supplied portrait');
+    if (profile.whatsapp) assert.ok(markup.includes(profile.whatsapp.replaceAll('&', '&amp;')), 'Home contains the supplied WhatsApp link');
+    for (const project of projects) assert.ok(markup.includes(`href="/work/${project.id}"`), `Home links to ${project.id}`);
     for (const section of ['home', 'about', 'expertise', 'work', 'contact']) assert.ok(ids.includes(section), `Home: ${section} section exists`);
     for (const field of ['name', 'email', 'subject', 'message']) {
       const control = markup.match(new RegExp(`<(?:input|textarea)\\b[^>]*\\bname="${field}"[^>]*>`))?.[0];

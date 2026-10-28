@@ -31,6 +31,16 @@ export function Projects() {
   const { t } = usePreferences();
   return <section className="projects dark" aria-label={t.work.label}>
     <div className="projects-heading micro" data-reveal>{t.work.label} <span>({projectTotal})</span></div>
+    <nav className="project-index" aria-label={t.catalog.index}>
+      <div className="project-index-intro"><h3>{t.catalog.index}</h3><p>{t.catalog.indexHint}</p></div>
+      <ol>{projects.map((project, index) => <li key={project.id}>
+        <TransitionLink href={`/work/${project.id}`} transitionLabel={t.projects[project.id].title}>
+          <span className="micro project-index-number">{String(index + 1).padStart(2, '0')}</span>
+          <span><strong>{t.projects[project.id].title}</strong><small>{t.projects[project.id].context}</small></span>
+          <span className="project-index-arrow" aria-hidden="true">↗</span>
+        </TransitionLink>
+      </li>)}</ol>
+    </nav>
     {projects.map((project,index) => <ProjectCard key={project.id} project={project} index={index}/>)}
     <div className="projects-end micro"><span>{t.work.end}</span><span>{t.work.nextIdea}</span></div>
   </section>;
@@ -42,7 +52,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   return <article className={`project-card project-${project.id}`}>
     <TransitionLink href={`/work/${project.id}`} aria-label={`${t.work.discover} ${copy.title}`} transitionLabel={copy.title} className="project-link" data-cursor={t.work.view}>
       <div className="project-image-mask"><div className="project-image">{project.image ? <Image src={project.image} alt={`${t.work.interface} ${copy.title}`} width={1440} height={900} loading="lazy" decoding="async"/> : <ProjectPreview id={project.id}/>}</div></div>
-      <div className="project-heading"><span className="micro project-category">— {copy.category} · 0{index+1}</span><h3>{copy.title}</h3><p>{copy.description}</p></div>
+      <div className="project-heading"><span className="micro project-category">— {copy.category} · {String(index+1).padStart(2, '0')}</span><h3>{copy.title}</h3><p>{copy.description}</p></div>
       <div className="project-overlay-footer"><div className="project-focus micro">{copy.focus.map((focus,i)=><span key={i}>{focus}</span>)}</div><CircularSeal text={`${t.work.exploreProject} · ${t.work.exploreProject} · `}/></div>
     </TransitionLink>
     <div className="project-caption micro"><span>{project.image ? t.work.overview : t.work.concept}</span><span>{String(index + 1).padStart(2, '0')} / {projectTotal}</span></div>
